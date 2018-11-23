@@ -1,0 +1,42 @@
+---
+- name: EOS Setup
+  hosts: localhost
+  vars:
+    cluster_name: eos-zpn-k8s-os
+
+  tasks:
+{{range .}}
+  - name: K8s create VM
+    register: {{.Name}}
+    os_server:
+        state: {{.State}}
+        auth:
+          auth_url: http://10.219.106.27:35357/v3/
+          username: eosadmin
+          password: Abcd.1234
+          project_name: eoscloud
+        name: {{.Name}}
+        config_drive: yes
+        image: {{.Image}}
+        security_groups: {{.SG}}
+        key_name: {{.Key}}
+        timeout: 300
+        flavor: 10
+        network: {{.Network}}
+        meta:
+          hostname: {{.Name}}
+          group: k8s
+{{end }}
+
+
+- name: Register IP Addresses
+  hosts: localhost
+  tasks:
+    - debug: 
+        msg: >
+           Report 
+           {{range .}}
+           {{if .Debug }}
+           {{"{{"}} {{.Name}}.openstack.accessIPv4 {{"}}"}}
+           {{end }} 
+           {{end }}

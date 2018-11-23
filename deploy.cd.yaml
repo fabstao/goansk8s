@@ -1,0 +1,26 @@
+---
+- name: EOS Setup
+  hosts: localhost
+
+  tasks:
+  - name: Test create VM
+    os_server:
+        state: present
+        auth:
+          auth_url: http://10.219.106.27:35357/v3/
+          username: eosadmin
+          password: Abcd.1234
+          project_name: eoscloud
+        name: ansvm1
+        config_drive: yes
+        image: CentOS7
+        security_groups: Linux-Generic
+        key_name: EOSKEY
+        timeout: 300
+        flavor: 10
+        nics:
+          - net-name: provider
+        meta:
+          hostname: ansvm1
+          group: k8s
+

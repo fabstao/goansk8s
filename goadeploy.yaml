@@ -1,0 +1,92 @@
+---
+- name: EOS Setup
+  hosts: localhost
+  vars:
+    cluster_name: eos-zpn-k8s-os
+
+  tasks:
+
+  - name: K8s create VM
+    register: goaclvm1
+    os_server:
+        state: present
+        auth:
+          auth_url: http://10.219.106.27:35357/v3/
+          username: eosadmin
+          password: Abcd.1234
+          project_name: eoscloud
+        name: goaclvm1
+        config_drive: yes
+        image: ClearLinux26430
+        security_groups: Linux-Generic
+        key_name: EOSKEY
+        timeout: 300
+        flavor: 10
+        network: provider
+        meta:
+          hostname: goaclvm1
+          group: k8s
+
+  - name: K8s create VM
+    register: goaclvm2
+    os_server:
+        state: present
+        auth:
+          auth_url: http://10.219.106.27:35357/v3/
+          username: eosadmin
+          password: Abcd.1234
+          project_name: eoscloud
+        name: goaclvm2
+        config_drive: yes
+        image: ClearLinux26430
+        security_groups: Linux-Generic
+        key_name: EOSKEY
+        timeout: 300
+        flavor: 10
+        network: provider
+        meta:
+          hostname: goaclvm2
+          group: k8s
+
+  - name: K8s create VM
+    register: goaclvm3
+    os_server:
+        state: present
+        auth:
+          auth_url: http://10.219.106.27:35357/v3/
+          username: eosadmin
+          password: Abcd.1234
+          project_name: eoscloud
+        name: goaclvm3
+        config_drive: yes
+        image: ClearLinux26430
+        security_groups: Linux-Generic
+        key_name: EOSKEY
+        timeout: 300
+        flavor: 10
+        network: provider
+        meta:
+          hostname: goaclvm3
+          group: k8s
+
+
+
+- name: Register IP Addresses
+  hosts: localhost
+  tasks:
+    - debug: 
+        msg: >
+           Report 
+           
+           
+           {{ goaclvm1.openstack.accessIPv4 }}
+            
+           
+           
+           {{ goaclvm2.openstack.accessIPv4 }}
+            
+           
+           
+           {{ goaclvm3.openstack.accessIPv4 }}
+            
+           

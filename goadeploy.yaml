@@ -7,7 +7,7 @@
   tasks:
 
   - name: K8s create VM
-    register: goaclvm1
+    register: fabsk8s0
     os_server:
         state: present
         auth:
@@ -15,7 +15,7 @@
           username: eosadmin
           password: Abcd.1234
           project_name: eoscloud
-        name: goaclvm1
+        name: fabsk8s0
         config_drive: yes
         image: ClearLinux26430
         security_groups: Linux-Generic
@@ -24,11 +24,11 @@
         flavor: 10
         network: provider
         meta:
-          hostname: goaclvm1
+          hostname: fabsk8s0
           group: k8s
 
   - name: K8s create VM
-    register: goaclvm2
+    register: fabsk8s1
     os_server:
         state: present
         auth:
@@ -36,7 +36,7 @@
           username: eosadmin
           password: Abcd.1234
           project_name: eoscloud
-        name: goaclvm2
+        name: fabsk8s1
         config_drive: yes
         image: ClearLinux26430
         security_groups: Linux-Generic
@@ -45,28 +45,7 @@
         flavor: 10
         network: provider
         meta:
-          hostname: goaclvm2
-          group: k8s
-
-  - name: K8s create VM
-    register: goaclvm3
-    os_server:
-        state: present
-        auth:
-          auth_url: http://10.219.106.27:35357/v3/
-          username: eosadmin
-          password: Abcd.1234
-          project_name: eoscloud
-        name: goaclvm3
-        config_drive: yes
-        image: ClearLinux26430
-        security_groups: Linux-Generic
-        key_name: EOSKEY
-        timeout: 300
-        flavor: 10
-        network: provider
-        meta:
-          hostname: goaclvm3
+          hostname: fabsk8s1
           group: k8s
 
 
@@ -79,14 +58,10 @@
            Report 
            
            
-           {{ goaclvm1.openstack.accessIPv4 }}
+           {{ fabsk8s0.openstack.accessIPv4 }}
             
            
            
-           {{ goaclvm2.openstack.accessIPv4 }}
-            
-           
-           
-           {{ goaclvm3.openstack.accessIPv4 }}
+           {{ fabsk8s1.openstack.accessIPv4 }}
             
            

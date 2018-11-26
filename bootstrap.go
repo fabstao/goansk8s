@@ -65,6 +65,7 @@ func main() {
 	banner("Output ansible Playbook for automatic ", "K8s cluster creation on Openstack")
 	file, err := os.Create("goadeploy.yaml")
 	checkError(err)
+	defer file.Close()
 	var k8scluster []VM
 
 	//Create VMs for k8s cluster

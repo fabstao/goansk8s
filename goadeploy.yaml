@@ -7,7 +7,7 @@
   tasks:
 
   - name: K8s create VM
-    register: fabsk8s0
+    register: jaja0
     os_server:
         state: present
         auth:
@@ -15,7 +15,7 @@
           username: eosadmin
           password: Abcd.1234
           project_name: eoscloud
-        name: fabsk8s0
+        name: jaja0
         config_drive: yes
         image: ClearLinux26430
         security_groups: Linux-Generic
@@ -24,28 +24,7 @@
         flavor: 10
         network: provider
         meta:
-          hostname: fabsk8s0
-          group: k8s
-
-  - name: K8s create VM
-    register: fabsk8s1
-    os_server:
-        state: present
-        auth:
-          auth_url: http://10.219.106.27:35357/v3/
-          username: eosadmin
-          password: Abcd.1234
-          project_name: eoscloud
-        name: fabsk8s1
-        config_drive: yes
-        image: ClearLinux26430
-        security_groups: Linux-Generic
-        key_name: EOSKEY
-        timeout: 300
-        flavor: 10
-        network: provider
-        meta:
-          hostname: fabsk8s1
+          hostname: jaja0
           group: k8s
 
 
@@ -58,10 +37,6 @@
            Report 
            
            
-           {{ fabsk8s0.openstack.accessIPv4 }}
-            
-           
-           
-           {{ fabsk8s1.openstack.accessIPv4 }}
+           {{ jaja0.openstack.accessIPv4 }}
             
            
